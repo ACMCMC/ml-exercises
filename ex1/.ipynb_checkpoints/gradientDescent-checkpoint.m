@@ -17,12 +17,13 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
+    pred = (X*theta-y);
+
     for j = 1:rows(theta)
-        theta(j) = theta(j) - (alpha/rows(X))*sum((X*theta-y).*X(j));
-        disp(theta(1));
-        printf('iteracion %d', j);
-
-
+        theta(j) = theta(j) - alpha*sum(X(:,j)'*pred)/m;
+        %disp(theta);
+        %printf('iteracion %d', j);
+    end
 
 
 
@@ -32,5 +33,7 @@ for iter = 1:num_iters
     J_history(iter) = computeCost(X, y, theta);
 
 end
+
+%disp(J_history);
 
 end
