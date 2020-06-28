@@ -15,7 +15,15 @@ p = zeros(m, 1);
 %               You should set p to a vector of 0's and 1's
 %
 
+    p = X*theta;
 
+    for j = 1:m
+        if p(j) >= 0
+            p(j) = 1;
+        else
+            p(j) = 0;
+        end
+    end
 
 
 
