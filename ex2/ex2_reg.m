@@ -107,19 +107,21 @@ pause;
 initial_theta = zeros(size(X, 2), 1);
 
 % Set regularization parameter lambda to 1 (you should vary this)
-lambda = 1;
+lambda = [[0:0.2:1]';50;100];
 
 % Set Options
 options = optimset('GradObj', 'on', 'MaxIter', 400);
 
+for j=1:rows(lambda)
+
 % Optimize
 [theta, J, exit_flag] = ...
-	fminunc(@(t)(costFunctionReg(t, X, y, lambda)), initial_theta, options);
+	fminunc(@(t)(costFunctionReg(t, X, y, lambda(j))), initial_theta, options);
 
 % Plot Boundary
 plotDecisionBoundary(theta, X, y);
 hold on;
-title(sprintf('lambda = %g', lambda))
+title(sprintf('lambda = %g', lambda(j)))
 
 % Labels and Legend
 xlabel('Microchip Test 1')
@@ -134,3 +136,4 @@ p = predict(theta, X);
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
 fprintf('Expected accuracy (with lambda = 1): 83.1 (approx)\n');
 
+end
